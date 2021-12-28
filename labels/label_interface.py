@@ -48,7 +48,6 @@ class Label:
                 self._fill_region_with_values(self.regions[regs[0]], self.regions[regs[1]], values)
 
     def _generate_edge_index_coo_format(self):
-        # upper_tr_mask = np.triu(self.mask)
         self.edge_index_coo = np.array(self.mask.nonzero())
 
     def _generate_edge_attr(self):
@@ -62,7 +61,6 @@ class Label:
     def to_json(self, path):
         self._generate_edge_index_coo_format()
         self._generate_edge_attr()
-        # self.edge_attr = self.edge_attr.reshape((1, self.edge_attr.shape[0]))
         data = {
             'num_nodes': self.num_nodes,
             'edge_attr': json.dumps(self.edge_attr.tolist()),
