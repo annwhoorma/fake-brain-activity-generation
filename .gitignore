@@ -2,3 +2,5 @@ __pycache__
 *.zip
 dataset
 project
+dataset_small
+dataset_inner
