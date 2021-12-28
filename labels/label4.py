@@ -11,8 +11,6 @@ class Label4(Label):
         
     def _generate_regions(self):
         super()._generate_regions()
-        self.connections = {
-            'strong': self.connections['strong'] + [('r2', 'r5'), ('r4', 'r5'), ('r2', 'r4')],
-            'weak': [('r1', 'r3'), ('r1', 'r4'), ('r1', 'r3'), ('r1', 'r5')],
-            'weakest': [('r1', 'r2'), ('r2', 'r3'), ('r3', 'r5'), ('r3', 'r4'),]
-        }
+        self.connections['strong'] = [('r2', 'r5'), ('r4', 'r5'), ('r2', 'r4')]
+        self.connections['weak'] = [('r1', 'r3'), ('r1', 'r4'), ('r1', 'r3'), ('r1', 'r5')]
+        self.connections['weakest'] = [('r1', 'r2'), ('r2', 'r3'), ('r3', 'r5'), ('r3', 'r4'),]

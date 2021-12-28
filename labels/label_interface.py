@@ -23,12 +23,14 @@ class Label:
             'r5': range(int(nn*0.7), int(nn*0.85))
         }
         self.weights = {
-            'strong': (0.8, 1),
+            'inner': (0.8, 1),
+            'strong': (0.5, 0.8),
             'weak': (0.15, 0.5),
             'weakest': (0, 0.15)
         }
         self.connections = {
-            'strong': [('r1', 'r1'), ('r2', 'r2'), ('r3', 'r3'), ('r4', 'r4'), ('r5', 'r5')],
+            'inner': [('r1', 'r1'), ('r2', 'r2'), ('r3', 'r3'), ('r4', 'r4'), ('r5', 'r5')],
+            'strong': [],
             'weak': [],
             'weakest': []
         }
