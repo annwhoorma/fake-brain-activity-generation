@@ -16,28 +16,27 @@ class Label:
     def _generate_regions(self):
         nn = self.num_nodes
         self.regions = {
-            'r1': range(0, int(nn*0.3)),
-            'r2': range(int(nn*0.3), int(nn*0.7)),
-            'r3': range(int(nn*0.85), nn),
-            'r4': range(int(nn*0.3), int(nn*0.4)),
-            'r5': range(int(nn*0.7), int(nn*0.85))
+            'r1': range(0, int(nn*0.4)),
+            'r2': range(int(nn*0.4), int(nn*0.8)),
+            'r3': range(int(nn*0.9), nn),
         }
         self.weights = {
-            'strong': (0.8, 1),
+            'inner': (0.8, 1),
+            'strong': (0.5, 0.8),
             'weak': (0.15, 0.5),
             'weakest': (0, 0.15)
         }
         self.connections = {
             'strong': [], # if i add inner-connections here everything goes to shit
             'weak': [],
-            'weakest': []
+            'weakest': [ ('r1', 'r2'), ('r2', 'r3')]
         }
 
     def _fill_region_with_values(self, r1, r2, values):
         for i, row in enumerate(r1):
             for j, col in enumerate(r2):
                 self.A[row, col] += values[i+j]
-        self.A /= np.max(self.A)
+                self.A[col, row] += values[i+j]
 
     def _generate_patterns(self):
         for conn, regss in self.connections.items():
@@ -46,6 +45,7 @@ class Label:
                 num_values = len(self.regions[regs[0]]) * len(self.regions[regs[1]])
                 values = list([(random.uniform(ws[0], ws[1])) for _ in range(num_values)])
                 self._fill_region_with_values(self.regions[regs[0]], self.regions[regs[1]], values)
+        self.A /= np.max(self.A)
 
     def _generate_edge_index_coo_format(self):
         self.edge_index_coo = np.array(self.mask.nonzero())

@@ -38,26 +38,11 @@ def generate_mask(num_nodes, num_edges, fully_conn=True):
 
 if __name__ == '__main__':
     train = {
-        Label1: ('label1', 128),
-        Label2: ('label2', 128),
-        Label3: ('label3', 128),
-        Label4: ('label4', 128),
+        Label1: ('label1', 1),
     }
-    val = {
-        Label1: ('label1', 32),
-        Label2: ('label2', 32),
-        Label3: ('label3', 32),
-        Label4: ('label4', 32),
-    }
-    test = {
-        Label1: ('label1', 16),
-        Label2: ('label2', 16),
-        Label3: ('label3', 16),
-        Label4: ('label4', 16),
-    }
-    num_nodes = 32
+    val = {}
+    test = {}
+    num_nodes = 5
     num_edges = num_nodes * (num_nodes - 1) # undirected
     mask = generate_mask(num_nodes, num_edges)
-    train_dataset = Dataset(train, num_nodes, num_edges, mask, './dataset/train')
-    val_dataset = Dataset(val, num_nodes, num_edges, mask, './dataset/valid')
-    test_dataset = Dataset(test, num_nodes, num_edges, mask, './dataset/test')
+    train_dataset = Dataset(train, num_nodes, num_edges, mask, './dataset_test_conn')
