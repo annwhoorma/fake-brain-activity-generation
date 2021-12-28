@@ -58,6 +58,6 @@ if __name__ == '__main__':
     num_nodes = 32
     num_edges = num_nodes * (num_nodes - 1) # undirected
     mask = generate_mask(num_nodes, num_edges)
-    train_dataset = Dataset(train, num_nodes, num_edges, mask, './dataset_inner_conn/train')
-    val_dataset = Dataset(val, num_nodes, num_edges, mask, './dataset_inner_conn/valid')
-    test_dataset = Dataset(test, num_nodes, num_edges, mask, './dataset_inner_conn/test')
+    train_dataset = Dataset(train, num_nodes, num_edges, mask, './dataset/train')
+    val_dataset = Dataset(val, num_nodes, num_edges, mask, './dataset/valid')
+    test_dataset = Dataset(test, num_nodes, num_edges, mask, './dataset/test')
