@@ -22,9 +22,13 @@ class Dataset:
 def make_symmetric(matrix):
     return (matrix + matrix.T)
 
-def generate_mask(num_nodes, num_edges):
-    edges_ratio = num_edges / (num_nodes * (num_nodes - 1) // 2)
-
+def generate_mask(num_nodes, num_edges, fully_conn=True):
+    if fully_conn:
+        mask = np.ones((num_nodes, num_nodes))
+        np.fill_diagonal(mask, 0)
+        return mask
+    edges_ratio = num_edges / (num_nodes * (num_nodes - 1))
+    print(edges_ratio)
     mask = np.random.uniform(0, 1, num_nodes**2).reshape(num_nodes, num_nodes)
     symm_mask = make_symmetric(mask) / 2
     mask = np.where((symm_mask < edges_ratio), 1, 0)
@@ -34,27 +38,26 @@ def generate_mask(num_nodes, num_edges):
 
 if __name__ == '__main__':
     train = {
-        Label1: ('label1', 5),
-        Label2: ('label2', 5),
-        Label3: ('label3', 5),
-        Label4: ('label4', 5),
+        Label1: ('label1', 128),
+        Label2: ('label2', 128),
+        Label3: ('label3', 128),
+        Label4: ('label4', 128),
     }
     val = {
-        Label1: ('label1', 2),
-        Label2: ('label2', 2),
-        Label3: ('label3', 2),
-        Label4: ('label4', 2),
+        Label1: ('label1', 32),
+        Label2: ('label2', 32),
+        Label3: ('label3', 32),
+        Label4: ('label4', 32),
     }
     test = {
-        Label1: ('label1', 1),
-        Label2: ('label2', 1),
-        Label3: ('label3', 1),
-        Label4: ('label4', 1),
+        Label1: ('label1', 16),
+        Label2: ('label2', 16),
+        Label3: ('label3', 16),
+        Label4: ('label4', 16),
     }
-    num_nodes = 5
-    num_edges = num_nodes * (num_nodes - 1) // 2
+    num_nodes = 32
+    num_edges = num_nodes * (num_nodes - 1) # undirected
     mask = generate_mask(num_nodes, num_edges)
-    print(mask)
     train_dataset = Dataset(train, num_nodes, num_edges, mask, './dataset_inner_conn/train')
     val_dataset = Dataset(val, num_nodes, num_edges, mask, './dataset_inner_conn/valid')
     test_dataset = Dataset(test, num_nodes, num_edges, mask, './dataset_inner_conn/test')
