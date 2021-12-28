@@ -12,7 +12,7 @@ class Label2(Label):
     def _generate_regions(self):
         super()._generate_regions()
         self.connections = {
-            'strong': [('r1', 'r2'), ('r2', 'r4'), ('r1', 'r4'), ('r4', 'r5')],
+            'strong': self.connections['strong'] + [('r1', 'r2'), ('r2', 'r4'), ('r1', 'r4'), ('r4', 'r5')],
             'weak': [  ('r1', 'r3'), ('r1', 'r4')],
             'weakest': [('r2', 'r3'), ('r3', 'r4')]
         }
