@@ -39,7 +39,7 @@ class Label:
         for i, row in enumerate(r1):
             for j, col in enumerate(r2):
                 self.A[row, col] += values[i+j]
-        self.A /= np.max(self.A)
+                self.A[col, row] += values[i+j]
 
     def _generate_patterns(self):
         for conn, regss in self.connections.items():
@@ -48,6 +48,7 @@ class Label:
                 num_values = len(self.regions[regs[0]]) * len(self.regions[regs[1]])
                 values = list([(random.uniform(ws[0], ws[1])) for _ in range(num_values)])
                 self._fill_region_with_values(self.regions[regs[0]], self.regions[regs[1]], values)
+        self.A /= np.max(self.A)
 
     def _generate_edge_index_coo_format(self):
         self.edge_index_coo = np.array(self.mask.nonzero())
